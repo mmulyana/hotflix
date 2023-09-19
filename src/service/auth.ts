@@ -1,15 +1,32 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
 import { auth } from './firebase'
 
 export type returnType = {
   id: string
 }
 
-export type registerType = (name: string, password: string) => Promise<returnType>
+export type handleAuthType = (
+  name: string,
+  password: string
+) => Promise<returnType>
 
-export const handleRegister: registerType = async (name, password) => {
+export const handleRegister: handleAuthType = async (name, password) => {
   try {
     const data = await createUserWithEmailAndPassword(auth, name, password)
+    return {
+      id: data.user?.uid,
+    }
+  } catch (error) {
+    throw error
+  }
+}
+
+export const handleLogin: handleAuthType = async (name, password) => {
+  try {
+    const data = await signInWithEmailAndPassword(auth, name, password)
     return {
       id: data.user?.uid,
     }

@@ -1,10 +1,10 @@
 'use client'
 
-import CardMovie from '@/component/CardMovie'
+import { useEffect, useState } from 'react'
+import CardMovie from '@/component/card-movie'
 import { MovieI } from '@/model/movie'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import { useEffect, useState } from 'react'
 
 function page() {
   const [movies, setMovies] = useState<MovieI[] | null>(null)

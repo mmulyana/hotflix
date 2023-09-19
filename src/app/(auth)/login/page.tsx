@@ -1,8 +1,12 @@
 'use client'
 
-import { handleRegister } from '@/service/auth'
-import { createUser } from '@/service/user'
+import { User } from '@/model/auth'
+import { useAppDispatch } from '@/redux'
+import { setUser } from '@/redux/reducers/auth'
+import { handleLogin } from '@/service/auth'
+import { getUser } from '@/service/user'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -17,7 +21,13 @@ const LoginSchema = z.object({
 })
 
 export default function page() {
-  const { register, handleSubmit, formState: { errors } } = useForm<formType>({
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<formType>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: '',
@@ -27,10 +37,16 @@ export default function page() {
 
   const onSubmit: SubmitHandler<formType> = async (data) => {
     try {
-      const { id } = await handleRegister(data.email, data.password)
-      const user = await createUser(id, data.email, data.email)
+      const { id } = await handleLogin(data.email, data.password)
+      const user = await getUser(id)
       if (user) {
-        // dispatch to store
+        const payload: User = {
+          uid: id,
+          email: user.email,
+          username: user.username,
+        }
+        dispatch(setUser(payload))
+        router.replace('/profile')
       }
     } catch (error) {
       console.log(error)
@@ -45,13 +61,11 @@ export default function page() {
           <label>email</label>
           <input {...register('email')} />
           {errors.email && <p>{errors.email.message}</p>}
-
         </div>
         <div>
           <label>password</label>
           <input {...register('password')} />
           {errors.password && <p>{errors.password.message}</p>}
-
         </div>
         <button className='mt-2' type='submit'>
           Login

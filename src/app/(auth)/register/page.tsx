@@ -3,6 +3,7 @@
 import { handleRegister } from '@/service/auth'
 import { createUser } from '@/service/user'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -26,7 +27,12 @@ const RegisterSchema = z.object({
   })
 
 export default function page() {
-  const { register, handleSubmit, formState: {errors} } = useForm<formType>({
+  const router = useRouter()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<formType>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
       username: '',
@@ -41,7 +47,7 @@ export default function page() {
       const { id } = await handleRegister(data.email, data.password)
       const user = await createUser(id, data.email, data.email)
       if (user) {
-        // dispatch to store
+        router.push('/login')
       }
     } catch (error) {
       console.log(error)
