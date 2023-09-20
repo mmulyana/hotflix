@@ -3,5 +3,13 @@
 @tailwind utilities;
 
 body {
-  background-color: #f5f5f5;
+  background-color: #1c1c25;
+}
+.swiper-container {
+  padding: 30px 0;
+}
+
+.swiper-slide {
+  min-height: 80px;
+  transition: 0.3s ease 0s;
 }
