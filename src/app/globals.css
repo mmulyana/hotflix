@@ -1,15 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 body {
   background-color: #1c1c25;
-}
-.swiper-container {
-  padding: 30px 0;
+  overflow-x: hidden;
 }
 
 .swiper-slide {
-  min-height: 80px;
-  transition: 0.3s ease 0s;
+  height: fit-content;
+  transition: 200ms ease-in-out;
+  animation-timing-function: linear;
+  overflow: hidden;
+}
+
+.swiper-slide div div .card__desc {
+  display: none;
+}
+.swiper-slide:hover div div .card__desc {
+  display: block;
 }

@@ -7,12 +7,20 @@ import Swiper from 'react-id-swiper'
 import 'swiper/css'
 import { ChevronLeftIcon } from '@heroicons/react/20/solid'
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link'
 
-function page() {
+type Props = {
+  searchParams: Record<string, string> | null | undefined
+}
+
+function page({ searchParams }: Props) {
+  const showModal = searchParams?.detail
+  const [isActivePrev, setIsActivePrev] = useState<boolean>(false)
+
   const sliderRef = useRef(null) as any
   const [movies, setMovies] = useState<MovieI[] | null>(null)
   const params = {
-    slidesPerView: 5,
+    slidesPerView: 4,
     spaceBetween: 10,
     loop: true,
   }
@@ -41,60 +49,87 @@ function page() {
 
   const handleNext = useCallback(() => {
     if (!sliderRef.current) return
+    if (!isActivePrev) setIsActivePrev(true)
     sliderRef.current.swiper.slideNext()
   }, [])
 
   return (
-    <div className='overflow-x-hidden relative'>
-      <div className='container mx-auto max-w-6xl'>
-        <p className='text-white mb-2'>Top Rated</p>
+    <div className='relative mt-20` h-[180px]'>
+      <div className='container mx-auto max-w-6xl mb-4'>
+        <p className='text-white'>Top Rated</p>
       </div>
-      <div
-        className={[
-          'container mx-auto relative',
-          movies !== null ? 'h-[calc(100%+20px)]' : 'h-44',
-        ].join(' ')}
-      >
-        {typeof movies !== null ? (
-          <Swiper
-            ref={sliderRef}
-            {...params}
-            // @ts-ignore
-            breakpoints={{
-              400: {
-                slidesPerView: 2,
-              },
-              639: {
-                slidesPerView: 3,
-              },
-              1000: {
-                slidesPerView: 5,
-              },
-            }}
+      <div className='container mx-auto max-w-6xl static 2xl:relative'>
+        {movies && movies?.length > 1 ? (
+          <>
+            <Swiper
+              ref={sliderRef}
+              {...params}
+              // @ts-ignore
+              breakpoints={{
+                200: {
+                  slidesPerView: 1,
+                },
+                300: {
+                  slidesPerView: 1,
+                },
+                400: {
+                  slidesPerView: 2,
+                },
+                639: {
+                  slidesPerView: 3,
+                },
+                1000: {
+                  slidesPerView: 4,
+                },
+              }}
+            >
+              {movies?.map((movie: MovieI) => (
+                <div
+                  key={movie.id}
+                  className='relative hover:scale-110 hover:min-h-[200px] hover:z-10 h-fit'
+                >
+                  <div className='w-full h-[120px] md:h-[140px] xl:h-[157px] overflow-hidden bg-[#1c1c25] hover:bg-[#30303e] hover:shadow-xl hover:shadow-gray-950/60'>
+                    <CardMovie data={movie} />
+                  </div>
+                </div>
+              ))}
+            </Swiper>
+          </>
+        ) : (
+          <div className='h-[120px] md:h-[140px] xl-[157px] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+            <div className='h-full bg-gray-500/80 animate-pulse'></div>
+            <div className='h-full bg-gray-500/80 animate-pulse'></div>
+            <div className='h-full bg-gray-500/80 animate-pulse hidden md:block'></div>
+            <div className='h-full bg-gray-500/80 animate-pulse hidden lg:block'></div>
+          </div>
+        )}
+      </div>
+      {isActivePrev ? (
+        <>
+          <div
+            className='absolute left-0 top-[60%] -translate-y-1/2 z-10 h-fit cursor-pointer flex items-center justify-center'
+            onClick={handlePrev}
           >
-            {movies?.map((movie: MovieI) => (
-              <div
-                key={movie.id}
-                className='relative hover:scale-125 hover:z-10'
-              >
-                <CardMovie data={movie} />
-              </div>
-            ))}
-          </Swiper>
-        ) : null}
-        <div
-          className='absolute left-0 top-1/2 -translate-y-1/2 z-10 h-40 w-20 cursor-pointer flex items-center justify-center bg-gradient-to-r from-[#1c1c25] to-[#1c1c25]/0'
-          onClick={handlePrev}
-        >
-          <ChevronLeftIcon className='text-white h-12 w-12' />
-        </div>
-        <div
-          className='absolute right-0 top-1/2 -translate-y-1/2 z-10 h-40 w-20 cursor-pointer flex items-center justify-center bg-gradient-to-l from-[#1c1c25] to-[#1c1c25]/0'
-          onClick={handleNext}
-        >
-          <ChevronRightIcon className='text-white h-12 w-12' />
-        </div>
+            <ChevronLeftIcon className='text-white h-12 w-12' />
+          </div>
+        </>
+      ) : null}
+      <div
+        className='absolute right-0 top-[60%] -translate-y-1/2 z-10 h-fit cursor-pointer flex items-center justify-center'
+        onClick={handleNext}
+      >
+        <ChevronRightIcon className='text-white h-12 w-12' />
       </div>
+      {typeof showModal !== 'undefined' && showModal !== '' ? (
+        <>
+          <div className='fixed top-0 left-0 w-full bg-black/90 z-10 h-full overflow-y-auto py-20'>
+            <div className='p-2 rounded bg-[#2b2b33] h-[800px] max-w-5xl mx-auto'>
+              Link
+              <Link href='/home'>Close</Link>
+            </div>
+          </div>
+        </>
+      ) : null}
     </div>
   )
 }
