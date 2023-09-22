@@ -3,6 +3,7 @@
 import ModalMovie from '@/components/modal-movie'
 import SliderMovie from '@/components/slider-movie'
 import { IMovieDetail } from '@/model/movie'
+import { movieRequests } from '@/utils'
 import { useEffect, useState } from 'react'
 
 const TOKEN = process.env.NEXT_PUBLIC_TOKEN
@@ -19,8 +20,12 @@ function page({ searchParams }: Props) {
 
   useEffect(() => {
     if (!showModal) {
+      document.body.style.overflow = ''
       setDetail(null)
       return
+    }
+    if(showModal) {
+      document.body.style.overflow = 'hidden'
     }
     async function getDetailMovie(id: string) {
       setLoading(true)
@@ -36,19 +41,7 @@ function page({ searchParams }: Props) {
 
   return (
     <div className='flex flex-col gap-5 md:gap-10 mt-10'>
-      <SliderMovie
-        title='Playing Now'
-        url={`https://api.themoviedb.org/3/movie/now_playing?api_key=${TOKEN}`}
-      />
-      <SliderMovie
-        title='Upcoming'
-        url={`https://api.themoviedb.org/3/movie/upcoming?api_key=${TOKEN}`}
-      />
-      
-      <SliderMovie
-        title='Top Rated'
-        url={`https://api.themoviedb.org/3/movie/top_rated?api_key=${TOKEN}`}
-      />
+      {movieRequests.map((d, index) => <SliderMovie key={index} title={d.title} url={d.url}/>)}
       {typeof showModal !== 'undefined' && showModal !== '' ? <ModalMovie detail={detail} loading={loading}/> : null}
     </div>
   )

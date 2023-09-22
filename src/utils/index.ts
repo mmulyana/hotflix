@@ -23,3 +23,20 @@ export const genresById: genres = {
   10752: 'War',
   37: 'Western',
 }
+
+export const TOKEN = process.env.NEXT_PUBLIC_TOKEN
+
+export const movieRequests = [
+  {
+    title: 'Playing Now',
+    url: `https://api.themoviedb.org/3/movie/now_playing?api_key=${TOKEN}`,
+  },
+  {
+    title: 'Upcoming',
+    url: `https://api.themoviedb.org/3/movie/upcoming?api_key=${TOKEN}`,
+  },
+  {
+    title: 'Top Rated',
+    url: `https://api.themoviedb.org/3/movie/top_rated?api_key=${TOKEN}`,
+  },
+]

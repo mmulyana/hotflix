@@ -20,3 +20,6 @@ body {
 .swiper-slide:hover div div .card__desc {
   display: block;
 }
+.slide-movie-wrapper:hover {
+  z-index: 10;
+}

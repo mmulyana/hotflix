@@ -2,6 +2,8 @@ import Link from 'next/link'
 
 import { IMovieDetail } from '@/model/movie'
 import { XCircleIcon } from '@heroicons/react/20/solid'
+import { useEffect, useState } from 'react'
+import { TOKEN } from '@/utils'
 
 type Props = {
   detail: IMovieDetail | null
@@ -33,6 +35,10 @@ export default function ModalMovie({ detail, loading }: Props) {
           <div className='-mt-8 relative z-10 px-4 md:px-8'>
             <p className='text-5xl font-normal text-white'>{detail?.title}</p>
             <p className='mt-2 text-white'>{detail?.overview}</p>
+            <div className='mt-4 flex gap-2'>
+              {detail?.genres.map((genre) => <span key={genre.id} className='border border-gray-50 px-4 py-1 rounded-full text-sm text-white'>{genre.name}</span>)}
+            </div>
+            <div></div>
           </div>
         ) : (
           <div className='mt-2 relative z-10 px-4 md:px-8'>
