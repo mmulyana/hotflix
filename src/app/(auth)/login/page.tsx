@@ -1,14 +1,16 @@
 'use client'
 
-import { User } from '@/model/auth'
-import { useAppDispatch } from '@/redux'
-import { setUser } from '@/redux/reducers/auth'
-import { handleLogin } from '@/service/auth'
-import { getUser } from '@/service/user'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { useForm, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
+
+import { setUser } from '@/redux/reducers/auth'
+import { useAppDispatch } from '@/redux'
+import { getUser } from '@/service/user'
+import { User } from '@/model/auth'
+
+import { handleLogin } from '@/service/auth'
 
 type formType = {
   email: string
