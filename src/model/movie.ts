@@ -8,7 +8,7 @@ export interface MovieI {
   overview: string
   popularity: number
   poster_path: string
-  release_date: string
+  release_date: string | number
   title: string
   video?: boolean
   vote_average: number
@@ -55,7 +55,6 @@ export interface IMovieDetail extends MovieI {
   popularity: number
   production_companies: ProductionCompany[]
   production_countries: ProductionCountry[]
-  release_date: string
   revenue: number
   runtime: number
   spoken_languages: SpokenLanguage[]

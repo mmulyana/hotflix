@@ -25,18 +25,20 @@ export const genresById: genres = {
 }
 
 export const TOKEN = process.env.NEXT_PUBLIC_TOKEN
+export const BASE_URL = 'https://api.themoviedb.org/3'
+export const BASE_URL_IMG = 'https://image.tmdb.org/t/p/original'
 
 export const movieRequests = [
   {
     title: 'Playing Now',
-    url: `https://api.themoviedb.org/3/movie/now_playing?api_key=${TOKEN}`,
+    url: `${BASE_URL}/movie/now_playing?api_key=${TOKEN}`,
   },
   {
     title: 'Upcoming',
-    url: `https://api.themoviedb.org/3/movie/upcoming?api_key=${TOKEN}`,
+    url: `${BASE_URL}/movie/upcoming?api_key=${TOKEN}`,
   },
   {
     title: 'Top Rated',
-    url: `https://api.themoviedb.org/3/movie/top_rated?api_key=${TOKEN}`,
+    url: `${BASE_URL}/movie/top_rated?api_key=${TOKEN}`,
   },
 ]
