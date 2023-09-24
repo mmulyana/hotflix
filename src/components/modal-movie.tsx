@@ -1,8 +1,6 @@
 import Link from 'next/link'
-
-import { IMovieDetail } from '@/model/movie'
-import { XMarkIcon } from '@heroicons/react/20/solid'
 import { BookmarkIcon, StarIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon } from '@heroicons/react/20/solid'
 import { useEffect, useState, useMemo } from 'react'
 import { BASE_URL, BASE_URL_IMG, TOKEN } from '@/utils'
 import { If, Then, Else } from 'react-if'
@@ -10,6 +8,8 @@ import { useSelector } from 'react-redux'
 import { selectAuth } from '@/redux/reducers/auth'
 import { toast } from 'react-toastify'
 import { handleAddFavorite } from '@/service/favorite'
+import { handleAddWishlist } from '@/service/wishlist'
+import { IMovieDetail } from '@/model/movie'
 
 type Props = {
   detail: IMovieDetail | null
@@ -57,6 +57,7 @@ export default function ModalMovie({ detail, loading }: Props) {
 
   async function handleFavorite() {
     if (!user) {
+      toast.error('Log In Required')
       return
     }
 
@@ -67,10 +68,26 @@ export default function ModalMovie({ detail, loading }: Props) {
       detail?.title,
       detail?.genres
     )
+    if(res) {
+      toast.success('Favorite Movie Saved🎉')
+    }
   }
+  
   async function handleWishlist() {
     if (!user) {
+      toast.error('Log In Required')
       return
+    }
+
+    const res = await handleAddWishlist(
+      user.uid,
+      detail?.id,
+      detail?.backdrop_path,
+      detail?.title,
+      detail?.genres
+    )
+    if(res) {
+      toast.success('Wishlist Movie Saved🎉')
     }
   }
 

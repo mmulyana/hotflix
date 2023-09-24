@@ -13,7 +13,7 @@ import { signOut } from 'firebase/auth'
 import Link from 'next/link'
 import { Else, If, Then } from 'react-if'
 import { useSelector } from 'react-redux'
-
+import { toast } from 'react-toastify'
 export default function Sidebar() {
   const { user, isLoading } = useSelector(selectAuth)
   const dispatch = useAppDispatch()
@@ -21,6 +21,7 @@ export default function Sidebar() {
   function handleLogout() {
     signOut(auth)
     dispatch(removeUser())
+    toast.success('You have been successfully logged out')
   }
 
   return (

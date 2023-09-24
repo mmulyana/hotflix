@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import ReduxProvider from '@/components/redux-provider'
 import AuthWrapper from '@/components/auth-wrapper'
+import Toastify from '@/components/toastify'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang='en'>
       <ReduxProvider>
         <AuthWrapper>
-          <body className={inter.className}>{children}</body>
+          <body className={inter.className}>
+            {children}
+            <Toastify />
+          </body>
         </AuthWrapper>
       </ReduxProvider>
     </html>

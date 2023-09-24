@@ -1,5 +1,8 @@
 'use client'
 
+import Footer from '@/components/footer'
+import Navbar from '@/components/navbar'
+import Sidebar from '@/components/sidebar'
 import { selectAuth } from '@/redux/reducers/auth'
 import { redirect } from 'next/navigation'
 import { useEffect } from 'react'
@@ -20,9 +23,17 @@ export default function AuthLayout({ children }: Props) {
   }, [user, isLoading])
 
   return (
-    <div>
-      <p>Profile Layout</p>
-      {children}
-    </div>
+    <>
+      <Navbar />
+      <div className='grid grid-cols-1 lg:grid-cols-[36px_1fr]'>
+        <div>
+          <Sidebar />
+        </div>
+        <div className='container h-fit lg:max-w-6xl mx-auto overflow-x-hidden pb-14'>
+          {children}
+        </div>
+      </div>
+      <Footer />
+    </>
   )
 }

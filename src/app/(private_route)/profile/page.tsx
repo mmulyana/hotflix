@@ -17,9 +17,20 @@ export default function Page() {
   }
   
   return (
-    <div>
-      <button onClick={handleLogout}>logout</button>
-      <p>{user?.email} - {isLoading ? 'true': 'false'}</p>
+    <div className='min-h-screen'>
+      <div className='mt-16'>
+        <div className='flex justify-between items-center'>
+          <div className='flex items-center gap-4'>
+            <div className='w-12 h-12 rounded-full bg-gray-300/30 text-white text-lg flex items-center justify-center uppercase'>
+              {user?.username[0]}
+            </div>
+            <p className='text-white'>{user?.username}</p>
+          </div>
+          <div>
+            <button className='px-4 py-1 rounded-lg bg-gray-300/20 text-white text-sm'>Setting</button>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
