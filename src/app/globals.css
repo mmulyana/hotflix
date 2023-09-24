@@ -1,25 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+  .swiper-slide {
+    @apply h-fit duration-150 ease-in-out overflow-hidden;
+  }
+
+  .swiper-slide div div .card__desc {
+    @apply hidden;
+  }
+  
+  .swiper-slide:hover div div .card__desc {
+    @apply block;
+  }
+
+  .sidebar-item {
+    @apply p-2 text-white rounded flex items-center gap-3 text-sm cursor-pointer;
+  }
+
+  .slide-movie-wrapper:hover {
+    @apply z-20;
+  }
+
+  .sidebar-item .sidebar-link {
+    @apply hidden;
+  }
+
+  .sidebar-wrapper:hover {
+    @apply w-4/5 md:w-[360px] bg-gradient-to-r from-[#13131a] to-[#13131a]/10;
+  }
+
+  .sidebar-wrapper:hover .sidebar-link {
+    @apply block;
+  }
+}
 
 body {
   background-color: #1c1c25;
   overflow-x: hidden;
 }
 
-.swiper-slide {
-  height: fit-content;
-  transition: 200ms ease-in-out;
-  animation-timing-function: linear;
-  overflow: hidden;
-}
-
-.swiper-slide div div .card__desc {
-  display: none;
-}
-.swiper-slide:hover div div .card__desc {
-  display: block;
-}
-.slide-movie-wrapper:hover {
-  z-index: 10;
+.sidebar-item:hover .sidebar-icon {
+  filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.8));
 }

@@ -19,7 +19,7 @@ export default function SliderMovie({ title, url }: Props) {
   const [movies, setMovies] = useState<MovieI[] | null>(null)
   const params = {
     slidesPerView: 4,
-    spaceBetween: 10,
+    spaceBetween: 8,
     loop: true,
   }
 
@@ -49,11 +49,11 @@ export default function SliderMovie({ title, url }: Props) {
   }, [])
 
   return (
-    <div className='relative h-[180px] px-4 slide-movie-wrapper'>
-      <div className='container mx-auto max-w-6xl mb-4'>
+    <div className='relative h-[200px] px-4 w-full'>
+      <div className='mx-auto w-full mb-4'>
         <p className='text-white'>{title}</p>
       </div>
-      <div className='container mx-auto max-w-6xl static 2xl:relative'>
+      <div className='container w-full static 2xl:relative'>
         {movies && movies?.length > 1 ? (
           <>
             <Swiper
@@ -81,7 +81,7 @@ export default function SliderMovie({ title, url }: Props) {
               {movies?.map((movie: MovieI) => (
                 <div
                   key={movie.id}
-                  className='relative z-0 hover:scale-110 hover:min-h-[120px] hover:lg:min-h-[200px] hover:z-10  hover:shadow-xl hover:shadow-gray-950/50 h-fit'
+                  className='relative z-0 hover:z-10 hover:scale-110 hover:min-h-[120px] hover:lg:min-h-[200px] h-fit'
                 >
                   <div className='w-full h-[120px] md:h-[140px] xl:h-[157px] overflow-hidden bg-[#1c1c25] hover:bg-[#30303e]'>
                     <CardMovie data={movie} />

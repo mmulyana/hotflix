@@ -15,7 +15,7 @@ export interface MovieI {
   vote_count: number
 }
 
-type Genre = {
+export type Genre = {
   id: number
   name: string
 }
