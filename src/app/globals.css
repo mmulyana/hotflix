@@ -27,7 +27,7 @@
   }
 
   .sidebar-wrapper:hover {
-    @apply w-4/5 md:w-[360px] bg-gradient-to-r from-[#13131a] to-[#13131a]/10;
+    @apply w-4/5 md:w-[360px] bg-gradient-to-r from-[#111118] to-[#13131a]/0;
   }
 
   .sidebar-wrapper:hover .sidebar-link {

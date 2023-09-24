@@ -40,7 +40,7 @@ function page({ searchParams }: Props) {
   }, [showModal])
 
   return (
-    <div className='flex flex-col gap-5 md:gap-8 mt-10'>
+    <div className='flex flex-col gap-5 md:gap-8 mt-20'>
       {movieRequests.map((d, index) => <SliderMovie key={index} title={d.title} url={d.url}/>)}
       {typeof showModal !== 'undefined' && showModal !== '' ? <ModalMovie detail={detail} loading={loading}/> : null}
     </div>

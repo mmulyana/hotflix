@@ -46,7 +46,7 @@ export default function page() {
   const onSubmit: SubmitHandler<formType> = async (data) => {
     try {
       const { id } = await handleRegister(data.email, data.password)
-      const user = await createUser(id, data.email, data.email)
+      const user = await createUser(id, data.email, data.username)
       if (user) {
         router.push('/login')
       }
