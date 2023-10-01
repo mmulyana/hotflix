@@ -23,7 +23,6 @@ export default function AuthWrapper({ children }: Props) {
         dispatch(handleLoading({ value: false }))
         return
       }
-      console.log(currentUser)
       const user = await getUser(currentUser.uid)
       if (user) {
         const payload: User = {
@@ -32,7 +31,9 @@ export default function AuthWrapper({ children }: Props) {
           username: user.username,
         }
         dispatch(setUser(payload))
+        dispatch(handleLoading({ value: false }))
       } else {
+        dispatch(handleLoading({ value: false }))
       }
     })
 

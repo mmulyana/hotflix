@@ -12,9 +12,27 @@ export default function Page() {
   const { user, isLoading } = useSelector(selectAuth)
   const dispatch = useAppDispatch()
 
-  function handleLogout() {
-    signOut(auth)
-    dispatch(removeUser())
+  if (isLoading) {
+    return (
+      <div className='min-h-screen'>
+        <div className='mt-16'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_3fr] px-4 gap-5'>
+            <div className='p-4 bg-[#22222b] rounded-lg h-40 animate-pulse'></div>
+            <div>
+              <div className='grid grid-cols-2 lg:grid-cols-3 gap-10 h-full'>
+                <div className='bg-[#22222b] animate-pulse'></div>
+                <div className='bg-[#22222b] animate-pulse'></div>
+                <div className='bg-[#22222b] animate-pulse'></div>
+              </div>
+            </div>
+          </div>
+          <div className='grid grid-cols-1 lg:grid-cols-[1fr_3fr] px-4 gap-5 mt-5'>
+            <div className='hidden lg:block'></div>
+            <div className='p-4 rounded-lg bg-[#22222b] w-full animate-pulse'></div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
