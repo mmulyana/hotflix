@@ -12,6 +12,10 @@ export interface AddReviewPayload {
   movie_img: string | null | undefined
 }
 
+export interface ReviewI extends AddReviewPayload {
+  id: string
+}
+
 export type reviewI = Omit<AddReviewPayload,'user_id' | 'movie_img' | 'movie_id' | 'movie_name'>
 
 export type getReviewByMovieIdResponse = {
