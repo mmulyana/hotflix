@@ -1,5 +1,6 @@
 'use client'
 
+import HeroMovie from '@/components/hero-movie'
 import ModalMovie from '@/components/modal-movie'
 import SliderMovie from '@/components/slider-movie'
 import { IMovieDetail } from '@/model/movie'
@@ -40,10 +41,13 @@ function page({ searchParams }: Props) {
   }, [showModal])
 
   return (
-    <div className='flex flex-col gap-5 md:gap-8 mt-20'>
-      {movieRequests.map((d, index) => <SliderMovie key={index} title={d.title} url={d.url}/>)}
+    <>
+      <HeroMovie/>
+      <div className='flex flex-col gap-5 md:gap-8 mt-8'>
+        {movieRequests.map((d, index) => <SliderMovie key={index} title={d.title} url={d.url}/>)}
+      </div>
       {typeof showModal !== 'undefined' && showModal !== '' ? <ModalMovie detail={detail} loading={loading}/> : null}
-    </div>
+    </>
   )
 }
 
