@@ -144,16 +144,28 @@ export default function Page({ searchParams }: Props) {
               <Switch>
                 <Case condition={searchParams?.tab === 'reviews'}>
                   {data?.reviews.map((review: ReviewI) => (
-                    <div key={review.id} className='grid grid-cols-[1fr_4fr] gap-3'>
+                    <div
+                      key={review.id}
+                      className='grid grid-cols-[1fr_4fr] gap-3'
+                    >
                       <img
                         src={BASE_URL_IMG + review.movie_img}
                         className='h-14 md:h-20 w-auto object-fit object-center rounded-md'
                       />
                       <div className='flex flex-col justify-center items-start'>
-                        <p className='text-sm text-white/30'>
-                          {review.movie_name}
-                        </p>
-                        <p className='text-white text-lg'>
+                        <div className='flex items-center gap-2'>
+                          <p className='text-sm text-white/30'>
+                            {review.movie_name}
+                          </p>
+                          <div className='w-1 h-1 rounded-full bg-gray-100' />
+                          <div className='flex items-center gap-1'>
+                            <StarIcon className='w-3 h-3 text-yellow-400' />
+                            <p className='text-white text-xs'>
+                              {review.rating}
+                            </p>
+                          </div>
+                        </div>
+                        <p className='text-white text-lg mt-2'>
                           <span className='text-2xl'>&quot;</span>
                           {review.review}
                           <span className='text-2xl'>&quot;</span>
@@ -164,7 +176,10 @@ export default function Page({ searchParams }: Props) {
                 </Case>
                 <Case condition={searchParams?.tab === 'favorite'}>
                   {data?.favorites.map((review: any) => (
-                    <div key={review.id} className='grid grid-cols-[1fr_4fr] gap-3'>
+                    <div
+                      key={review.id}
+                      className='grid grid-cols-[1fr_4fr] gap-3'
+                    >
                       <img
                         src={BASE_URL_IMG + review.img}
                         className='h-14 md:h-20 w-auto object-fit object-center rounded-md'
@@ -177,7 +192,10 @@ export default function Page({ searchParams }: Props) {
                 </Case>
                 <Case condition={searchParams?.tab === 'wishlist'}>
                   {data?.wishlists.map((review: any) => (
-                    <div key={review.id} className='grid grid-cols-[1fr_4fr] gap-3'>
+                    <div
+                      key={review.id}
+                      className='grid grid-cols-[1fr_4fr] gap-3'
+                    >
                       <img
                         src={BASE_URL_IMG + review.img}
                         className='h-14 md:h-20 w-auto object-fit object-center rounded-md'
