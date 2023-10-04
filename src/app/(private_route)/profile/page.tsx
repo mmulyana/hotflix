@@ -2,15 +2,34 @@
 
 import { useSelector } from 'react-redux'
 import { removeUser, selectAuth } from '@/redux/reducers/auth'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/service/firebase'
 import { useAppDispatch } from '@/redux'
-import { ChartBarIcon } from '@heroicons/react/20/solid'
+import { BookmarkIcon, ChartBarIcon, ChatBubbleBottomCenterTextIcon, StarIcon } from '@heroicons/react/20/solid'
+import { ResponseProfileData, getProfileData } from '@/service/profile'
 
 export default function Page() {
   const { user, isLoading } = useSelector(selectAuth)
+  const [data, setData] = useState<any>()
+  const [loading, setLoading] = useState<boolean>(true)
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (!user) return
+    async function getData(uid: string) {
+      const { favorites, reviews, wishlists } = await getProfileData(uid)
+      const payload = {
+        favorites,
+        reviews,
+        wishlists,
+      }
+      setData(payload)
+      setLoading(false)
+    }
+
+    getData(user.uid)
+  }, [user])
 
   if (isLoading) {
     return (
@@ -18,13 +37,11 @@ export default function Page() {
         <div className='mt-16'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_3fr] px-4 gap-5'>
             <div className='p-4 bg-[#22222b] rounded-lg h-40 animate-pulse'></div>
-            <div>
-              <div className='grid grid-cols-2 lg:grid-cols-3 gap-10 h-full'>
-                <div className='bg-[#22222b] animate-pulse'></div>
-                <div className='bg-[#22222b] animate-pulse'></div>
-                <div className='bg-[#22222b] animate-pulse'></div>
+              <div className='grid grid-cols-2 lg:grid-cols-3 gap-5 h-full'>
+                <div className='bg-[#22222b] animate-pulse rounded-lg'></div>
+                <div className='bg-[#22222b] animate-pulse rounded-lg'></div>
+                <div className='bg-[#22222b] animate-pulse rounded-lg'></div>
               </div>
-            </div>
           </div>
           <div className='grid grid-cols-1 lg:grid-cols-[1fr_3fr] px-4 gap-5 mt-5'>
             <div className='hidden lg:block'></div>
@@ -51,31 +68,29 @@ export default function Page() {
               <p>{user?.email}</p>
             </div>
           </div>
-          <div>
-            <div className='grid grid-cols-2 lg:grid-cols-3 gap-10 h-full'>
+            <div className='grid grid-cols-2 lg:grid-cols-3 gap-5 h-full'>
               <div className='bg-[#22222b] p-4 rounded-lg text-white flex flex-col justify-between'>
                 <span className='text-white text-sm'>Favorite</span>
                 <div className='flex justify-between items-end'>
-                  <ChartBarIcon className='h-8 w-8 text-yellow-600' />
-                  <span className='text-2xl'>10</span>
+                  <StarIcon className='h-8 w-8 text-yellow-600' />
+                  {loading ? <div className='w-4 h-4 bg-gray-300 animate-pulse'/> : <span className='text-2xl'>{data?.favorites.length}</span>}
                 </div>
               </div>
               <div className='bg-[#22222b] p-4 rounded-lg text-white flex flex-col justify-between'>
                 <span className='text-white text-sm'>Wishlist</span>
                 <div className='flex justify-between items-end'>
-                  <ChartBarIcon className='h-8 w-8 text-teal-600' />
-                  <span className='text-2xl'>10</span>
+                  <BookmarkIcon className='h-8 w-8 text-teal-600' />
+                  {loading ? <div className='w-4 h-4 bg-gray-300 animate-pulse'/> : <span className='text-2xl'>{data?.wishlists.length}</span>}
                 </div>
               </div>
               <div className='bg-[#22222b] p-4 rounded-lg text-white flex flex-col justify-between'>
                 <span className='text-white text-sm'>Review</span>
                 <div className='flex justify-between items-end'>
-                  <ChartBarIcon className='h-8 w-8 text-red-700' />
-                  <span className='text-2xl'>10</span>
+                  <ChatBubbleBottomCenterTextIcon className='h-8 w-8 text-violet-500' />
+                  {loading ? <div className='w-4 h-4 bg-gray-300 animate-pulse'/> : <span className='text-2xl'>{data?.reviews.length}</span>}
                 </div>
               </div>
             </div>
-          </div>
         </div>
         <div className='grid grid-cols-1 lg:grid-cols-[1fr_3fr] px-4 gap-5 mt-5'>
           <div className='hidden lg:block'></div>
