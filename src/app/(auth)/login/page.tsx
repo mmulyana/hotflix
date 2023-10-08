@@ -22,7 +22,7 @@ const LoginSchema = z.object({
   password: z.string({ required_error: 'password is required' }).min(8),
 })
 
-export default function page() {
+export default function Page() {
   const dispatch = useAppDispatch()
   const router = useRouter()
   const {

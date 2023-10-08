@@ -13,7 +13,7 @@ type Props = {
   searchParams: Record<string, string> | null | undefined
 }
 
-function page({ searchParams }: Props) {
+function Page({ searchParams }: Props) {
   // showmodal to store id movie
   const showModal = searchParams?.detail as any
   const [detail, setDetail] = useState<IMovieDetail | null>(null)
@@ -51,4 +51,4 @@ function page({ searchParams }: Props) {
   )
 }
 
-export default page
+export default Page
