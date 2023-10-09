@@ -24,7 +24,6 @@ export default function AuthLayout({ children }: Props) {
 
   return (
     <>
-      <Navbar />
       <div className='grid grid-cols-1 lg:grid-cols-[36px_1fr]'>
         <div>
           <Sidebar />
@@ -33,7 +32,6 @@ export default function AuthLayout({ children }: Props) {
           {children}
         </div>
       </div>
-      <Footer />
     </>
   )
 }

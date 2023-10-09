@@ -48,8 +48,6 @@ export default function Page({ searchParams }: Props) {
     return <LoadingState />
   }
 
-  console.log(data)
-
   return (
     <div className='min-h-screen'>
       <div className='mt-16'>

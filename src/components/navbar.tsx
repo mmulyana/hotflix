@@ -9,11 +9,11 @@ import { useSelector } from 'react-redux'
 export default function Navbar() {
   const { user } = useSelector(selectAuth)
   return (
-    <div className='fixed w-full z-[21] h-16'>
-      <div className='container7 max-w-6xl px-4 md:px-0 md:pl-[34px] mx-auto flex justify-between text-white items-center h-full'>
+    <div className='fixed w-full z-[21] h-16 top-0 left-0'>
+      <div className='container max-w-6xl px-4 md:px-0 md:pl-[34px] mx-auto flex justify-between text-white items-center h-full'>
         <div className='flex items-center gap-6'>
           <Link
-            href='/home'
+            href='/'
             className='text-lg uppercase flex items-center gap-2'
           >
             <PlayIcon className='w-4 h-4 text-red-600' />

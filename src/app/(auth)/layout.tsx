@@ -6,9 +6,10 @@ type Props = {
 
 export default function AuthLayout({ children }: Props) {
   return (
-    <div>
-      <p>Auth Layout</p>
+    <div className='mx-auto max-w-[400px]'>
+      <div className='mt-28 mb-20 bg-[#22222B] p-5 rounded-lg'>
       {children}
+      </div>
     </div>
   )
 }

@@ -320,7 +320,7 @@ export default function ModalMovie({ detail, loading }: Props) {
             </Else>
           </If>
           <Link
-            href='/home'
+            href='/'
             className='absolute top-4 right-4 z-10 h-12 w-12 rounded-full bg-black flex justify-center items-center'
           >
             <XMarkIcon className='text-white w-8 h-8' />
